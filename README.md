@@ -2,14 +2,24 @@
 
 Simple LB is the simplest Load Balancer ever created.
 
-It uses RoundRobin algorithm to send requests into set of backends and support
-retries too.
+It uses a Round Robin algorithm to send requests to a set of backends and supports retries.
 
-It also performs active cleaning and passive recovery for unhealthy backends.
+It also performs active health checks to remove unhealthy backends from the pool and passive recovery to add them back.
 
-Since its simple it assume if / is reachable for any host its available
+## How to use
 
-# How to use
+### Installation
+
+To install `simplelb`, use the following command:
+
+```bash
+go install github.com/kasvith/simplelb/cmd/simplelb@latest
+```
+
+### Running
+
+Once installed, you can run `simplelb` from your terminal:
+
 ```bash
 Usage:
   -backends string
@@ -18,13 +28,22 @@ Usage:
         Port to serve (default 3030)
 ```
 
-Example:
+**Example:**
 
-To add followings as load balanced backends
+To add the following backends to the load balancer:
 - http://localhost:3031
 - http://localhost:3032
 - http://localhost:3033
 - http://localhost:3034
+
 ```bash
-simple-lb.exe --backends=http://localhost:3031,http://localhost:3032,http://localhost:3033,http://localhost:3034
+simplelb -backends="http://localhost:3031,http://localhost:3032,http://localhost:3033,http://localhost:3034"
+```
+
+## How to test
+
+To run the unit tests, use the following command:
+
+```bash
+go test -cover
 ```
